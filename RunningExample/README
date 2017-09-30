@@ -1,0 +1,6 @@
+README
+======
+
+To test ECF checking, run `./TestScript.sh`
+
+(TODO: Add explanation on SimpleDAO and Mallory, Add the ECF fixed example and how the attack no longer reports Non ECF, refer to the non ECF message, add messages in script explaining what is happening. Some comments on asynchronousity of geth mining, explain how to run all EVM transactions on real data, i.e. using 'fast' mode)
