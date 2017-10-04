@@ -561,7 +561,7 @@ func checkTraceForReentrancy(trace []Segment) {
 
 		// If trace is entirely omittable, return. It is obviously reentrant
 		if len(trace) == 0 || !hasRecursion(trace) {
-			Debug(2, "Transaction is reentrant after removing omittables.")
+			Debug(2, "Transaction is ECF after removing omittables.")
 			return
 		}
 
@@ -585,13 +585,13 @@ func checkTraceForReentrancy(trace []Segment) {
 		reorderedSubTrace, success := attemptToRemoveRecursion(minimalRecursiveSubTrace)
 		if !success {
 			firstSegment := minimalRecursiveSubTrace[0]
-			ImportantDebug("Transaction is not reentrant! Contract %v, depth %v, index in transaction starting at %v, len %v", firstSegment.contract.Hex(), firstSegment.depth, firstSegment.indexInTransaction, len(minimalRecursiveSubTrace))
+			ImportantDebug("Transaction is not ECF! Contract %v, depth %v, index in transaction starting at %v", firstSegment.contract.Hex(), firstSegment.depth, firstSegment.indexInTransaction)
 
 			reportNonReentrant(firstSegment, len(minimalRecursiveSubTrace))
 
 			return
 		} else {
-			Debug(2, "Subtrace is reentrant. Original: %v, Reordered : %v", minimalRecursiveSubTrace, reorderedSubTrace)
+			Debug(2, "Subtrace is ECF. Original: %v, Reordered : %v", minimalRecursiveSubTrace, reorderedSubTrace)
 		}
 
 		newTrace := make([]Segment, 0)
@@ -683,7 +683,7 @@ func (checker *Checker) UponEVMEnd(evm *Interpreter, contract *Contract) {
 	if checker.runningSegments.Len() == 1 && activeCallIsARealCall {
 		FirstSegment := checker.runningSegments.Pop().(*Segment)
 
-		Debug(2, "Transaction ended (Block #%v, contract %v). Checking if reentrant with respect to all participating contracts.", evm.env.BlockNumber, FirstSegment.contract.Hex())
+		Debug(2, "Transaction ended (Block #%v, contract %v). Checking if ECF with respect to all participating contracts.", evm.env.BlockNumber, FirstSegment.contract.Hex())
 
 		reentrancyCheckStartTime := time.Now()
 		checker.checkForReentrancy()

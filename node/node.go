@@ -180,7 +180,7 @@ func (n *Node) setupDb() error {
 		return err
 	}
 
-	fmt.Println("Opened database file %s", dbfile)
+	fmt.Println("Opened database file %v", dbfile)
 
 	n.dbHandler = db
 
@@ -200,7 +200,7 @@ func (n *Node) setupDb() error {
 
 	fmt.Println("Created all tables")
 
-	fmt.Printf("Setting db handler %v on the checker object\n", n.GetDbHandler())
+	//fmt.Printf("Setting db handler %v on the checker object\n", n.GetDbHandler())
 	vm.TheChecker().SetDbHandler(n.GetDbHandler())
 
 	return nil

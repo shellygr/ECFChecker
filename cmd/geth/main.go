@@ -251,7 +251,7 @@ func startNode(ctx *cli.Context, stack *node.Node) {
 	// Unlock any account specifically requested
 	ks := stack.AccountManager().Backends(keystore.KeyStoreType)[0].(*keystore.KeyStore)
 
-	fmt.Printf("Setting db handler %v on the checker object\n", stack.GetDbHandler())
+	//fmt.Printf("Setting db handler %v on the checker object\n", stack.GetDbHandler())
 	vm.TheChecker().SetDbHandler(stack.GetDbHandler())
 
 	passwords := utils.MakePasswordList(ctx)
