@@ -49,7 +49,7 @@ Remarkably, there is no warning on the transaction being non-ECF.
 
 
 ## Use cases
- - Online verification of the ECF property for new transactions as fetched by the client. Each non-ECF execution recorded is saved in $ETH_FOLDER/ecf.db
+ - Online verification of the ECF property for new transactions as fetched by the client. Each non-ECF execution recorded is saved in $ETH_FOLDER/ecf.db.
  - Small modifications to the code allow to drop transactions which are not ECF, thus miners could use it to drop non-ECF transactions.
  - In the POPL'18 paper the tool was used to check all transactions since Ethereum's inception until June 23rd 2017.
  - Test specific contracts and executions.
