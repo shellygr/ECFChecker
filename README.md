@@ -1,7 +1,7 @@
 # ECFChecker
 
 This project contains an implementation of a dynamic monitor of the ECF property of Ethereum transactions.
-It is based on [link](https://github.com/ethereum/go-ethereum "_geth_"), the Go implementation of an Ethereum client, version 1.5.9.
+It is based on _[Geth](https://github.com/ethereum/go-ethereum)_, the Go implementation of an Ethereum client, version 1.5.9.
 
 ## Artifact description
 + _32bit Ubuntu 16.04 with 1GB RAM._
@@ -50,6 +50,6 @@ Remarkably, there is no warning on the transaction being non-ECF.
 
 ## Use cases
  - Online verification of the ECF property for new transactions as fetched by the client. Each non-ECF execution recorded is saved in $ETH_FOLDER/ecf.db
- - Small modifications to the code allow to drop transactions which are not ECF.
+ - Small modifications to the code allow to drop transactions which are not ECF, thus miners could use it to drop non-ECF transactions.
  - In the POPL'18 paper the tool was used to check all transactions since Ethereum's inception until June 23rd 2017.
- - Test specific contracts and executions
+ - Test specific contracts and executions.
