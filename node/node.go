@@ -180,7 +180,7 @@ func (n *Node) setupDb() error {
 		return err
 	}
 
-	fmt.Println("Opened database file %v", dbfile)
+	fmt.Println("Opened database file", dbfile)
 
 	n.dbHandler = db
 
