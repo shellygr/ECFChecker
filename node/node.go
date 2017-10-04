@@ -52,7 +52,7 @@ var (
 )
 
 const (
-	DB_FILENAME = "qevm.db"
+	DB_FILENAME = "ecf.db"
 )
 
 // Node is a container on which services can be registered.

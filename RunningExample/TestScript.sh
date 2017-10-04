@@ -15,7 +15,7 @@ echo "Initializing ethereum network..."
 ../build/bin/geth --datadir=${ETH_FOLDER} init genesis.json  >& /dev/null
 
 echo "Deploying and attacking the non-ECF contract:"
-../build/bin/geth --datadir=${ETH_FOLDER} --unlock 0 --password "password" js ecfcheck.js 
+../build/bin/geth --datadir=${ETH_FOLDER} --unlock 0 --password "password" --verbosity 0 js ecfcheck.js 
 
 
 
