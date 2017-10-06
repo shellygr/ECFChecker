@@ -14,9 +14,16 @@ The ```Mallory``` contract acts as our Attacker object (Figure 3).
 Both ```SimpleDAO``` and ```Mallory``` behave as described in the paper. Some deviations are obligatory due to the pecularities of the EVM semantics.
 
 ## Running the artifact
+Download the VM from [https://www.cs.tau.ac.il/~shellygr/vms/ECFArtifact.ova](https://www.cs.tau.ac.il/~shellygr/vms/ECFArtifact.ova).
+
 Login to the machine, open a terminal and run:
 
 	cd ~/ECFChecker/RunningExample
+
+*A few notes on the execution in the provided VM:*
++ Depending on the availability of VT-x in the host system, it may be needed to modify the VM to use a single process and disable VT-x.
++ USB is disabled, thus when running the script, an error message may appear. It can be ignored.
+
 
 ### Non-ECF example
 To run the non-ECF vulnerable ```SimpleDAO``` contract, run:
